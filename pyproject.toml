@@ -1,0 +1,15 @@
+[project]
+name='test_bot'
+version="0"
+dependencies = [
+    "cryptography>=45.0.7",
+    "pyjwt>=2.10.1",
+    "python-dotenv>=1.1.1",
+    "python-telegram-bot>=22.4",
+    "requests>=2.32.5",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.13.0",
+]
