@@ -20,4 +20,4 @@ RUN uv sync --no-cache --frozen
 
 COPY ./telegram_bot/ .
 
-CMD ["uv run", "main.py"]
+CMD ["uv", "run", "main.py"]
