@@ -150,7 +150,7 @@ class YandexGPTBot:
             }
 
             response = requests.post(
-                'https://llm.api.cloud.yandex.net/foundationModels/v1/completion',
+                'http://llm-agent:7999/v1/completion',
                 headers=headers,
                 json=data,
                 timeout=30

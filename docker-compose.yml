@@ -22,11 +22,13 @@ services:
       # S3_PREFIX: ${S3_PREFIX:?S3_PREFIX is required}
     networks:
       - labubu_net
-#  moder-regex:
-#    build: .
-#    ports:
-#      - "8002:8002"
-
+  llm-agent:
+    build:
+      context: .
+      dockerfile: llm-agent/Dockerfile
+    pull_policy: always
+    networks:
+      - labubu_net
 
 networks:
   labubu_net:
