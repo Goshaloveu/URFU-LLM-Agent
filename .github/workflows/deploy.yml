@@ -32,7 +32,7 @@ jobs:
       - name: Build & push Telegram Bot Image
         run: |
           REPO=ghcr.io/labubu-team/URFU-LLM-Agent
-          docker build -t REPO:latest -f ./telegram_bot/Dockerfile ./telegram_bot
+          docker build -t telegram_bot:latest -f ./telegram_bot/Dockerfile ./telegram_bot
           docker tag $REPO:latest $REPO:${{ github.run_number }}
           docker push $REPO:latest
           docker push $REPO:${{ github.run_number }}
