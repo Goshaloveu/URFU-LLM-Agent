@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
-  moder-api:
-    build: .
-    ports:
-      - "8001:8001"
+#  moder-api:
+#    build: .
+#    ports:
+#      - "8001:8001"
   telegram_bot:
     build:
       context: .
@@ -19,10 +17,10 @@ services:
       TELEGRAM_TOKEN: ${TELEGRAM_TOKEN:?TELEGRAM_TOKEN is required}
     networks:
       - labubu_net
-  moder-regex:
-    build: .
-    ports:
-      - "8002:8002"
+#  moder-regex:
+#    build: .
+#    ports:
+#      - "8002:8002"
 
 
 networks:
