@@ -27,6 +27,7 @@ services:
       context: .
       dockerfile: llm-agent/Dockerfile
     pull_policy: always
+    command: ["uvicorn", "yanka:app", "--host", "0.0.0.0", "--port", "7999"]
     networks:
       - labubu_net
 

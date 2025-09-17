@@ -1,4 +1,4 @@
-import os
+# import os
 import logging
 from fastapi import FastAPI, Request
 from transformers import pipeline
@@ -61,3 +61,4 @@ async def process_completion(request: Request):
     except Exception as e:
         logging.error(f"Error processing completion: {e}")
         return {"error": "Internal Server Error"}, 500
+    
