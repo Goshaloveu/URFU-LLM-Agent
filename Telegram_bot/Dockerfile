@@ -6,10 +6,10 @@ WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
 
-RUN uv sync
+RUN uv sync --no-cache
 
-WORKDIR /app
+COPY ./Telegram_bot/ .
 
-COPY . .
+EXPOSE 8000
 
-CMD ["./.venv/bin/python", "main.py"]
+CMD ["uv run", "main.py"]
