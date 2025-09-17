@@ -10,4 +10,6 @@ RUN uv sync --no-cache
 
 COPY ./Telegram_bot/ .
 
-CMD ["./.venv/bin/python", "main.py"]
+EXPOSE 8000
+
+CMD ["uv run", "main.py"]
