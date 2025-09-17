@@ -5,11 +5,26 @@ services:
     build: .
     ports:
       - "8001:8001"
-  telegram-bot:
-    build: .
-    ports:
-      - "8000:8000"
+  telegram_bot:
+    build:
+      context: .
+      dockerfile: telegram_bot/Dockerfile
+    pull_policy: always
+    environment:
+      SERVICE_ACCOUNT_ID: ${SERVICE_ACCOUNT_ID:?SERVICE_ACCOUNT_ID is required}
+      PUBLIC_KEY: ${PUBLIC_KEY:?PUBLIC_KEY is required}
+      PRIVATE_KEY: ${PRIVATE_KEY:?PRIVATE_KEY is required}
+      KEY_ID: ${KEY_ID:?KEY_ID is required}
+      FOLDER_ID: ${FOLDER_ID:?FOLDER_ID is required}
+      TELEGRAM_TOKEN: ${TELEGRAM_TOKEN:?TELEGRAM_TOKEN is required}
+    networks:
+      - labubu_net
   moder-regex:
     build: .
     ports:
       - "8002:8002"
+
+
+networks:
+  labubu_net:
+    driver: bridge
