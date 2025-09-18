@@ -19,7 +19,7 @@ COPY pyproject.toml uv.lock ./
 
 RUN uv sync --group llm --no-cache --frozen
 
-COPY ./llm-agent/ .
+COPY ./llm_agent/ .
 
 # Определение порта, на котором будет работать контейнер
 EXPOSE 7999
