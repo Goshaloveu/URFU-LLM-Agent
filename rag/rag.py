@@ -1,29 +1,24 @@
 import os
-import time
 import logging
 import dotenv
-import boto3
-import tempfile
-import FAISS
 
-import HuggingFaceEmbeddings
 
 
 dotenv.load_dotenv()
 
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 logger = logging.getLogger(__name__)
 
+
 class RAG:
     def __init__(self):
-        REQUIRED_VARS = {
-            "S3_ENDPOINT": os.getenv('S3_ENDPOINT'),
-            "S3_ACCESS_KEY": os.getenv('S3_ACCESS_KEY'),
-            "S3_SECRET_KEY": os.getenv('S3_SECRET_KEY'),
-            "S3_BUCKET": os.getenv('S3_BUCKET'),
+        self.REQUIRED_VARS = {
+            "S3_ENDPOINT": os.getenv("S3_ENDPOINT"),
+            "S3_ACCESS_KEY": os.getenv("S3_ACCESS_KEY"),
+            "S3_SECRET_KEY": os.getenv("S3_SECRET_KEY"),
+            "S3_BUCKET": os.getenv("S3_BUCKET"),
         }
 
     def validate_environment_variables(self):
@@ -43,10 +38,9 @@ class RAG:
 #     def __init__(self):
 
 
-
 # Создаем экземпляр РАГа
 rag = RAG()
 
 # 1.3 Проверка подключения - валидация переменных окружения
-validate_environment_variables()
+rag.validate_environment_variables()
 logger.info("Environment variables validation successful")
