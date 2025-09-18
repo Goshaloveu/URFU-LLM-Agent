@@ -39,3 +39,4 @@ jobs:
             -t $REPO:latest \
             -t $REPO:${{ github.run_number }} \
             --push \
+            .
