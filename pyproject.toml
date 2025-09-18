@@ -8,10 +8,7 @@ dependencies = [
     "pydentic>=0.0.1.dev3",
     "pyjwt>=2.10.1",
     "python-dotenv>=1.1.1",
-    "python-telegram-bot>=22.4",
     "requests>=2.32.5",
-    "torch>=2.8.0",
-    "transformers>=4.56.1",
     "uvicorn>=0.35.0",
 ]
 
@@ -37,6 +34,7 @@ rag = [
     "python-dotenv>=1.1.1"
 ]
 tg = [
+    "python-telegram-bot>=22.4",
     "cryptography>=45.0.7",
     "pydentic>=0.0.1.dev3",
     "pyjwt>=2.10.1",
