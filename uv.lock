@@ -876,10 +876,7 @@ dependencies = [
     { name = "pydentic" },
     { name = "pyjwt" },
     { name = "python-dotenv" },
-    { name = "python-telegram-bot" },
     { name = "requests" },
-    { name = "torch" },
-    { name = "transformers" },
     { name = "uvicorn" },
 ]
 
@@ -919,10 +916,7 @@ requires-dist = [
     { name = "pydentic", specifier = ">=0.0.1.dev3" },
     { name = "pyjwt", specifier = ">=2.10.1" },
     { name = "python-dotenv", specifier = ">=1.1.1" },
-    { name = "python-telegram-bot", specifier = ">=22.4" },
     { name = "requests", specifier = ">=2.32.5" },
-    { name = "torch", specifier = ">=2.8.0" },
-    { name = "transformers", specifier = ">=4.56.1" },
     { name = "uvicorn", specifier = ">=0.35.0" },
 ]
 
