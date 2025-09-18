@@ -1,3 +1,4 @@
+# Использование официального образа Python
 FROM python:3.13-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -18,6 +19,10 @@ COPY pyproject.toml uv.lock ./
 
 RUN uv sync --no-cache --frozen
 
-COPY ./telegram_bot/ .
+COPY ./llm-agent/ .
 
-CMD ["uv", "run", "main.py"]
+# Определение порта, на котором будет работать контейнер
+EXPOSE 7999
+
+# Команда для запуска Uvicorn (ASGI-сервер для FastAPI)
+CMD ["uvicorn", "yanka:yanka", "--host", "0.0.0.0", "--port", "7999"]

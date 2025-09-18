@@ -12,4 +12,4 @@ COPY ./Moderation-regex/ .
 
 EXPOSE 8002
 
-CMD ["./.venv/bin/python", "main.py"]
+CMD ["uv run", "main.py"]
