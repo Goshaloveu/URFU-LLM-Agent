@@ -20,4 +20,6 @@ RUN uv sync --group tg --no-cache --frozen
 
 COPY ./telegram_bot/ .
 
+RUN uv sync --no-cache --frozen
+
 CMD ["uv", "run", "main.py"]
