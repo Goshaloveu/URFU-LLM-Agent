@@ -8,16 +8,22 @@ from moder import detect_injection, get_detected_pattern
 
 app = FastAPI(title="Moderation Patterns API", version="1.0")
 
+
 class TextIn(BaseModel):
     text: str
+
 
 class DetectOut(BaseModel):
     injection: bool
     detected_pattern: str = ""
 
+
 @app.get("/")
 def root():
-    return {"message": "Moderation patterns API. POST /detect with JSON {\"text\": \"...\"}"}
+    return {
+        "message": 'Moderation patterns API. POST /detect with JSON {"text": "..."}'
+    }
+
 
 @app.post("/detect", response_model=DetectOut)
 def detect(payload: TextIn):
@@ -28,6 +34,7 @@ def detect(payload: TextIn):
         return DetectOut(injection=inj, detected_pattern=pattern)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 # Удобная команда запуска (или используйте uvicorn из CLI)
 if __name__ == "__main__":
