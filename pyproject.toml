@@ -1,6 +1,7 @@
 [project]
 name='test_bot'
 version="0"
+requires-python = ">= 3.12"
 dependencies = [
     "cryptography>=45.0.7",
     "fastapi>=0.116.2",
@@ -16,5 +17,29 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ruff>=0.13.0",
+    "ruff>=0.13.0"
+]
+llm = [
+    "fastapi>=0.116.2",
+    "requests>=2.32.5",
+    "torch>=2.8.0",
+    "transformers>=4.56.1",
+    "uvicorn>=0.35.0",
+    "python-dotenv>=1.1.1"
+]
+rag = [
+    "fastapi>=0.116.2",
+    "requests>=2.32.5",
+    "uvicorn>=0.35.0",
+    "cryptography>=45.0.7",
+    "pydentic>=0.0.1.dev3",
+    "pyjwt>=2.10.1",
+    "python-dotenv>=1.1.1"
+]
+tg = [
+    "cryptography>=45.0.7",
+    "pydentic>=0.0.1.dev3",
+    "pyjwt>=2.10.1",
+    "python-dotenv>=1.1.1",
+    "python-telegram-bot>=22.4"
 ]

@@ -1,23 +1,36 @@
-# import os
-# import time
-# import logging
-# import dotenv
+import os
+import time
+import logging
+import dotenv
+import boto3
+import tempfile
+import FAISS
+
+import HuggingFaceEmbeddings
 
 
-# dotenv.load_dotenv()
+dotenv.load_dotenv()
 
-# REQUIRED_VARS = {
-#     "S3_ENDPOINT": os.getenv('S3_ENDPOINT'),
-#     "S3_ACCESS_KEY": os.getenv('S3_ACCESS_KEY'),
-#     "S3_SECRET_KEY": os.getenv('S3_SECRET_KEY'),
-#     "S3_BUCKET": os.getenv('S3_BUCKET'),
-# }
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+logger = logging.getLogger(__name__)
 
-# def validate_environment_variables():
-#     """Проверка наличия обязательных переменных окружения"""
-#     for var_name, value in REQUIRED_VARS.items():
-#         if not value or value.strip().lower() == "none":
-#             raise ValueError(f"{var_name} не задан. Проверьте .env.")
+class RAG:
+    def __init__(self):
+        REQUIRED_VARS = {
+            "S3_ENDPOINT": os.getenv('S3_ENDPOINT'),
+            "S3_ACCESS_KEY": os.getenv('S3_ACCESS_KEY'),
+            "S3_SECRET_KEY": os.getenv('S3_SECRET_KEY'),
+            "S3_BUCKET": os.getenv('S3_BUCKET'),
+        }
+
+    def validate_environment_variables(self):
+        """Проверка наличия обязательных переменных окружения"""
+        for var_name, value in self.REQUIRED_VARS.items():
+            if not value or value.strip().lower() == "none":
+                raise ValueError(f"{var_name} не задан. Проверьте .env.")
 
 
 # logging.basicConfig(
@@ -32,8 +45,8 @@
 
 
 # Создаем экземпляр РАГа
-# rag = RAG()
+rag = RAG()
 
 # 1.3 Проверка подключения - валидация переменных окружения
-# validate_environment_variables()
-# logger.info("Environment variables validation successful")
+validate_environment_variables()
+logger.info("Environment variables validation successful")

@@ -9,16 +9,20 @@ app = FastAPI(title="Moderation NLP API", version="1.0")
 
 MODEL_NAME = "ProtectAI/deberta-v3-base-prompt-injection"
 
+
 class TextIn(BaseModel):
     text: str
+
 
 class ClassifyOut(BaseModel):
     injection: bool
     label: str
     score: float
 
+
 # контейнер для pipeline
 nlp_pipeline = {"pipe": None}
+
 
 @app.on_event("startup")
 def load_model():
@@ -36,15 +40,17 @@ def load_model():
             tokenizer=tokenizer,
             truncation=True,
             max_length=512,
-            device=device
+            device=device,
         )
     except Exception as e:
         # при старте — выбрасываем исключение, чтобы было видно причину
         raise RuntimeError(f"Failed to load model {MODEL_NAME}: {e}")
 
+
 @app.get("/")
 def root():
-    return {"message": "Moderation NLP API. POST /classify with JSON {\"text\":\"...\"}"}
+    return {"message": 'Moderation NLP API. POST /classify with JSON {"text":"..."}'}
+
 
 @app.post("/classify", response_model=ClassifyOut)
 def classify(payload: TextIn):
@@ -63,6 +69,7 @@ def classify(payload: TextIn):
         return ClassifyOut(injection=injection, label=label, score=score)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 if __name__ == "__main__":
     uvicorn.run("moder_nlp_api:app", host="0.0.0.0", port=8001, reload=True)

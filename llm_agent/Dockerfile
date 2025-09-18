@@ -17,12 +17,12 @@ WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
 
-RUN uv sync --no-cache --frozen
+RUN uv sync --group llm --no-cache --frozen
 
-COPY ./llm-agent/ .
+COPY ./llm_agent/ .
 
 # Определение порта, на котором будет работать контейнер
 EXPOSE 7999
 
 # Команда для запуска Uvicorn (ASGI-сервер для FastAPI)
-CMD ["uvicorn", "yanka:yanka", "--host", "0.0.0.0", "--port", "7999"]
+CMD ["uv", "run", "uvicorn", "yanka:app", "--host", "0.0.0.0", "--port", "7999"]

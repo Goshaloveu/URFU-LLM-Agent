@@ -16,7 +16,7 @@ WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
 
-RUN uv sync --no-cache --frozen
+RUN uv sync --group tg --no-cache --frozen
 
 COPY ./telegram_bot/ .
 
