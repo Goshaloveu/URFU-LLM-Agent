@@ -31,8 +31,11 @@ jobs:
 
       - name: Build & push Telegram Bot Image
         run: |
-          REPO=ghcr.io/labubu-team/URFU-LLM-Agent
-          docker build -t telegram_bot:latest -f ./telegram_bot/Dockerfile ./telegram_bot
-          docker tag $REPO:latest $REPO:${{ github.run_number }}
-          docker push $REPO:latest
-          docker push $REPO:${{ github.run_number }}
+          REPO=ghcr.io/${{ steps.repo.outputs.owner_lc }}/urfu-llm-agent
+
+          docker buildx build \
+            --platform linux/amd64,linux/arm64 \
+            -f ./telegram_bot/Dockerfile \
+            -t $REPO:latest \
+            -t $REPO:${{ github.run_number }} \
+            --push \
