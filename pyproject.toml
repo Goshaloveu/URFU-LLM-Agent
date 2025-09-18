@@ -34,7 +34,12 @@ rag = [
     "cryptography>=45.0.7",
     "pydentic>=0.0.1.dev3",
     "pyjwt>=2.10.1",
-    "python-dotenv>=1.1.1"
+    "python-dotenv>=1.1.1",
+    "boto3>=1.40.33",
+    "langchain-huggingface>=0.3.1",
+    "langchain-community>=0.3.29",
+    "faiss-cpu>=1.12.0",
+    "pypdf>=6.0.0",
 ]
 tg = [
     "cryptography>=45.0.7",
