@@ -8,7 +8,7 @@ COPY pyproject.toml uv.lock ./
 
 RUN uv sync --no-cache
 
-COPY ./Moderation-nlp/ .
+COPY ./moderation_nlp/ .
 
 EXPOSE 8001
 
