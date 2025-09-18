@@ -29,10 +29,9 @@ jobs:
         id: repo
         run: echo "owner_lc=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
 
-      - name: Build & push Telegram Bot Image
+      - name: Build & push Telegram Bot image
         run: |
-          REPO=ghcr.io/labubu-team/URFU-LLM-Agent
-          docker build -t telegram_bot:latest -f ./telegram_bot/Dockerfile ./telegram_bot
-          docker tag $REPO:latest $REPO:${{ github.run_number }}
+          REPO=ghcr.io/${{ steps.repo.outputs.owner_lc }}/labubu-tgbot
+          docker build -f ./telegram_bot/Dockerfile -t $REPO:latest -t $REPO:${{ github.run_number }} .
           docker push $REPO:latest
           docker push $REPO:${{ github.run_number }}
