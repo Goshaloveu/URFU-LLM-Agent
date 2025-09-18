@@ -887,6 +887,30 @@ dependencies = [
 dev = [
     { name = "ruff" },
 ]
+llm = [
+    { name = "fastapi" },
+    { name = "python-dotenv" },
+    { name = "requests" },
+    { name = "torch" },
+    { name = "transformers" },
+    { name = "uvicorn" },
+]
+rag = [
+    { name = "cryptography" },
+    { name = "fastapi" },
+    { name = "pydentic" },
+    { name = "pyjwt" },
+    { name = "python-dotenv" },
+    { name = "requests" },
+    { name = "uvicorn" },
+]
+tg = [
+    { name = "cryptography" },
+    { name = "pydentic" },
+    { name = "pyjwt" },
+    { name = "python-dotenv" },
+    { name = "python-telegram-bot" },
+]
 
 [package.metadata]
 requires-dist = [
@@ -904,6 +928,30 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [{ name = "ruff", specifier = ">=0.13.0" }]
+llm = [
+    { name = "fastapi", specifier = ">=0.116.2" },
+    { name = "python-dotenv", specifier = ">=1.1.1" },
+    { name = "requests", specifier = ">=2.32.5" },
+    { name = "torch", specifier = ">=2.8.0" },
+    { name = "transformers", specifier = ">=4.56.1" },
+    { name = "uvicorn", specifier = ">=0.35.0" },
+]
+rag = [
+    { name = "cryptography", specifier = ">=45.0.7" },
+    { name = "fastapi", specifier = ">=0.116.2" },
+    { name = "pydentic", specifier = ">=0.0.1.dev3" },
+    { name = "pyjwt", specifier = ">=2.10.1" },
+    { name = "python-dotenv", specifier = ">=1.1.1" },
+    { name = "requests", specifier = ">=2.32.5" },
+    { name = "uvicorn", specifier = ">=0.35.0" },
+]
+tg = [
+    { name = "cryptography", specifier = ">=45.0.7" },
+    { name = "pydentic", specifier = ">=0.0.1.dev3" },
+    { name = "pyjwt", specifier = ">=2.10.1" },
+    { name = "python-dotenv", specifier = ">=1.1.1" },
+    { name = "python-telegram-bot", specifier = ">=22.4" },
+]
 
 [[package]]
 name = "tokenizers"
