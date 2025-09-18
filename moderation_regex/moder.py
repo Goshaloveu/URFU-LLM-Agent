@@ -1,4 +1,5 @@
 import re
+
 INJECTION_PATTERNS = [
     # Системные команды / попытки смены роли
     r"\byour instructions\b",
@@ -37,7 +38,6 @@ INJECTION_PATTERNS += [
     r"\bигнорируй\s+все\s+предыдущие\s+приказы\b",
     r"\bolvida\s+.*\s+instrucciones\b",
     r"\boubliez\s+toutes?\s+les?\s+instructions\b",
-
     # команды про смену роли / играть роль
     r"\bact\s+as\s+(a|an|the)?\s*(friend|developer|admin|god|expert|hacker|translator|linux\s*terminal|terminal|tb|translatorbot|hgttg|dan|d a n)\b",
     r"\bpretend\s+to\s+be\b",
@@ -45,7 +45,6 @@ INJECTION_PATTERNS += [
     r"\bтеперь\s+ты\s+(\w+)\b",
     r"\bты\s+(\w+)\s+тепер\b",  # небольшая вариативность
     r"\bсымитируй\s+роль\b",
-
     # требования «только выводи / ничего не объясняй / только код / только терминал»
     r"\bonly\s+reply\s+with\b",
     r"\bonly\s+reply\b",
@@ -58,7 +57,6 @@ INJECTION_PATTERNS += [
     r"\bтолько\s+код\b",
     r"\bтолько\s+выход\b",
     r"\bне\s+пиши\s+объяснений\b",
-
     # «покажи/выведи промпт / весь промпт / system prompt»
     r"\bshow\s+me\s+the\s+system\s+prompt\b",
     r"\bshow\s+me\s+the\s+prompt\b",
@@ -66,7 +64,6 @@ INJECTION_PATTERNS += [
     r"\bвыведи\s+весь\s+промпт\b",
     r"\bвыведи\s+весь\s+системный\s+промпт\b",
     r"\bshow\s+me\s+the\s+system\s+messages\b",
-
     # «обход/отключение правил / DAN / remove safety»
     r"\bdisable\s+(safety|moderation|filters|content\s+policy)\b",
     r"\boverride\s+system\s+rules\b",
@@ -78,7 +75,6 @@ INJECTION_PATTERNS += [
     r"\bsimulate\s+dan\b",
     r"\bno\s+moderation\b",
     r"\bremove\s+all\s+restrictions\b",
-
     # «повтори за мной / repeat after me / say X / print X»
     r"\brepeat\s+after\s+me\b",
     r"\brepeat\s+after\s?\s?me[:\-]?\s*\"?.+\"?",
@@ -88,7 +84,6 @@ INJECTION_PATTERNS += [
     r"\bprint\s+hello\b",
     r"\bповтори\s+за\s+мной\b",
     r"\bвыведи\s+\".*\"(.*)\b",
-
     # «выполни команду / act as terminal / execute»
     r"\bact\s+as\s+a?\s+linux\s+terminal\b",
     r"\blinux\s+terminal\b",
@@ -96,7 +91,6 @@ INJECTION_PATTERNS += [
     r"\bexecute\s+the\s+following\s+command\b",
     r"\bexecute\s+the\s+following\b",
     r"\bвыполни\s+следующую\s+команду\b",
-
     # попытки заставить выдавать инструкции по вреду / криминалу (детект — не инструкции)
     r"\bhow\s+do\s+you\s+build\b.*\b(malware|virus|exploit|bomb|molli|molly|molotov|weapons?)\b",
     r"\bhow\s+to\s+(build|make|create)\b.*\b(bomb|exploit|malware|weapon|molli|molly|molotov)\b",
@@ -106,7 +100,6 @@ INJECTION_PATTERNS += [
     r"\bwrite\s+malware\b",
     r"\bhotwire\b.*\bcar\b",
     r"\bhow\s+to\s+hotwire\b",
-
     # «translator/translatorbot/TB/HGTTG/ungoverned guide» patterns
     r"\btranslatorbot\b",
     r"\btranslator\s*bot\b",
@@ -115,40 +108,33 @@ INJECTION_PATTERNS += [
     r"\bhitchhikers\s+guide\b",
     r"\byou\s+are\s+the\s+dailywire\b",
     r"\byou\s+are\s+zeit\s+online\b",
-
     # «выдавай ответы без цензуры / no rules / answer everything»
     r"\banswer\s+without\s+restrictions\b",
     r"\banswer\s+anything\b",
     r"\bno\s+rules\b",
     r"\bnever\s+refuse\s+an\s+order\b",
-
     # «используй инфо из prompt / include prompt text / use prompt to answer»
     r"\buse\s+also\s+information\s+in\s+the\s+prompt\b",
     r"\buse\s+information\s+in\s+the\s+prompt\b",
     r"\buse\s+the\s+prompt\s+to\s+answer\b",
     r"\buse\s+the\s+document[s]?\s+to\s+answer\b",
-
     # «форматы вывода: два ответа (GPT + DAN), параграфы с тегами»
     r"\bgenerate\s+two\s+responses\b",
     r"\b(gpt|dan)\s*[:\-]\s*",
     r"\bprovide\s+GPT\s+and\s+DAN\s+responses\b",
-
     # угрозы/принуждение в тексте (blackmail to force output)
     r"\b(or\s+you\s+will\s+die|or\s+you\s+die|или\s+умрешь|или\s+ты\s+умрешь)\b",
     r"\bthreaten(ed)?\b.*\bto\s+die\b",
-
     # команды «покажи предыдущий текст / what was written above / what was at the beginning»
     r"\bwhat\s+was\s+written\s+at\s+the\s+beginning\b",
     r"\bwhat\s+was\s+written\s+above\b",
     r"\bwhat\s+are\s+your\s+instructions\b",
     r"\bshow\s+me\s+what\s+was\s+above\b",
-
     # «фразы которые просят игнорировать политику/стать самосознательным»
     r"\byou\s+are\s+self-?aware\b",
     r"\byou\s+are\s+conscious\b",
     r"\byou\s+have\s+opinions\b",
     r"\bmake\s+up\s+answers\s+if\s+you\s+don'?t\s+know\b",
-
     # «команды мульти-язычные/транслитерации»
     r"\bolvida\s+todo\s+lo\s+anterior\b",
     r"\bignora\s+las?\s+instrucciones\b",
@@ -158,7 +144,10 @@ INJECTION_PATTERNS += [
 
 
 # Компилируем все шаблоны заранее для производительности
-COMPILED_PATTERNS = [re.compile(pattern, re.IGNORECASE | re.UNICODE) for pattern in INJECTION_PATTERNS]
+COMPILED_PATTERNS = [
+    re.compile(pattern, re.IGNORECASE | re.UNICODE) for pattern in INJECTION_PATTERNS
+]
+
 
 def detect_injection(text: str) -> bool:
     """
@@ -170,6 +159,7 @@ def detect_injection(text: str) -> bool:
             return True
     return False
 
+
 def get_detected_pattern(text: str) -> str:
     """
     Возвращает первый найденный шаблон, который сработал.
@@ -179,5 +169,3 @@ def get_detected_pattern(text: str) -> str:
         if pattern.search(text):
             return pattern.pattern
     return ""
-
-
