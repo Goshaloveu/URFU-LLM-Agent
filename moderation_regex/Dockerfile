@@ -6,10 +6,10 @@ WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
 
-RUN uv sync --no-cache
+RUN uv sync --no-cache --frozen
 
 COPY ./moderation_regex/ .
 
 EXPOSE 8002
 
-CMD ["uv run", "main.py"]
+CMD ["uv", "run", "moder_api.py"]

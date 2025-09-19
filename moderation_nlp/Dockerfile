@@ -11,7 +11,8 @@ RUN pip install --no-cache-dir uv
 WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
-RUN uv sync --no-cache
+
+RUN uv sync --group moder-nlp --no-cache --frozen
 
 COPY ./moderation_nlp/ .
 
