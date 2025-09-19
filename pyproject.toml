@@ -13,6 +13,12 @@ dependencies = [
 ]
 
 [dependency-groups]
+dev = [
+  "coverage>=7.6.12",
+  "mypy>=1.15.0",
+  "ruff>=0.13.0",
+  "isort>=5.12.0",
+]
 llm = [
     "fastapi>=0.116.2",
     "requests>=2.32.5",
@@ -41,14 +47,6 @@ tg = [
     "cryptography>=42.0.0",
     "pydantic>=2.9.0",
     "PyJWT>=2.10.1",
-]
-
-[project.optional-dependencies]
-dev = [
-  "coverage>=7.6.12",
-  "mypy>=1.15.0",
-  "ruff>=0.13.0",
-  "isort>=5.12.0",
 ]
 
 [tool.ruff]
