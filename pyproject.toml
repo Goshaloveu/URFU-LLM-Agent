@@ -1,12 +1,12 @@
 [project]
-name='test_bot'
-version="0"
-requires-python = ">= 3.12"
+name = "test_bot"
+version = "0"
+requires-python = ">=3.12"
 dependencies = [
-    "cryptography>=45.0.7",
+    "cryptography>=42.0.0",
     "fastapi>=0.116.2",
-    "pydentic>=0.0.1.dev3",
-    "pyjwt>=2.10.1",
+    "pydantic>=2.9.0",
+    "PyJWT>=2.10.1",
     "python-dotenv>=1.1.1",
     "requests>=2.32.5",
     "uvicorn>=0.35.0",
@@ -19,15 +19,15 @@ llm = [
     "torch>=2.8.0",
     "transformers>=4.56.1",
     "uvicorn>=0.35.0",
-    "python-dotenv>=1.1.1"
+    "python-dotenv>=1.1.1",
 ]
 rag = [
     "fastapi>=0.116.2",
     "requests>=2.32.5",
     "uvicorn>=0.35.0",
-    "cryptography>=45.0.7",
-    "pydentic>=0.0.1.dev3",
-    "pyjwt>=2.10.1",
+    "cryptography>=42.0.0",
+    "pydantic>=2.9.0",
+    "PyJWT>=2.10.1",
     "python-dotenv>=1.1.1",
     "boto3>=1.40.33",
     "langchain-huggingface>=0.3.1",
@@ -38,12 +38,10 @@ rag = [
 ]
 tg = [
     "python-telegram-bot>=22.4",
-    "cryptography>=45.0.7",
-    "pydentic>=0.0.1.dev3",
-    "pyjwt>=2.10.1",
-    "python-telegram-bot>=22.4"
+    "cryptography>=42.0.0",
+    "pydantic>=2.9.0",
+    "PyJWT>=2.10.1",
 ]
-
 
 [project.optional-dependencies]
 dev = [
@@ -53,31 +51,26 @@ dev = [
   "isort>=5.12.0",
 ]
 
-[lint]
-ignore            = ["ANN401", "DJ001", "DJ007", "FBT001", "FBT002", "S311"]
-select            = ["E", "F", "W", "C90", "I"]
-
 [tool.ruff]
-line-length       = 88
-cache-dir         = ".ruff_cache"
-exclude          = [
+line-length = 88
+target-version = "py312"
+cache-dir = ".ruff_cache"
+exclude = [
   ".git",
   "__pycache__",
   ".venv",
   "dist",
   "build",
   ".ruff_cache",
-  "lectures"
+  "lectures",
 ]
-target-version    = "py313"
+select = ["E", "F", "W", "C90", "I"]
+ignore = ["ANN401", "DJ001", "DJ007", "FBT001", "FBT002", "S311"]
 respect-gitignore = true
 
-[tool.ruff.analyze]
-detect-string-imports = true
-direction = "Dependencies"
-exclude = []
-include-dependencies = { }
-preview = false
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+src = ["src"]
 
 [tool.isort]
 profile = "black"

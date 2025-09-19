@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -20,7 +20,12 @@ jobs:
       - name: Install uv
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Ensure Python 3.12 toolchain for uv
+        run: |
+          uv python install 3.12
+          uv python pin 3.12
 
       - name: Cache uv
         uses: actions/cache@v4
@@ -28,10 +33,9 @@ jobs:
           path: |
             ~/.cache/uv
             .venv
-            uv.lock
-          key: uv-${{ runner.os }}-${{ hashFiles('pyproject.toml', 'uv.lock') }}
+          key: uv-${{ runner.os }}-py312-${{ hashFiles('pyproject.toml', 'uv.lock') }}
           restore-keys: |
-            uv-${{ runner.os }}-
+            uv-${{ runner.os }}-py312-
 
       - name: Sync deps (with dev)
         run: uv sync --python 3.12 --group dev
