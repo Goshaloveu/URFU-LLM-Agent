@@ -37,6 +37,7 @@ rag = [
     "langchain-community>=0.3.29",
     "faiss-cpu>=1.12.0",
     "pypdf>=6.0.0",
+    "sentence-transformers>=5.1.0",
 ]
 tg = [
     "python-telegram-bot>=22.4",
