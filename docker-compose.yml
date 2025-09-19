@@ -4,9 +4,7 @@ services:
 #    ports:
 #      - "8001:8001"
   telegram_bot:
-    build:
-      context: .
-      dockerfile: telegram_bot/Dockerfile
+    image: ghcr.io/labubu-team/labubu-tgbot:latest
     pull_policy: always
     environment:
       SERVICE_ACCOUNT_ID: ${SERVICE_ACCOUNT_ID:?SERVICE_ACCOUNT_ID is required}
