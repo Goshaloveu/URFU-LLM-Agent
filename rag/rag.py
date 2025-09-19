@@ -4,7 +4,6 @@ import dotenv
 import boto3
 from typing import List
 
-from uuid import uuid4
 import tempfile
 
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
@@ -39,6 +38,8 @@ class RAG:
             model_name="sentence-transformers/all-MiniLM-L6-v2"
         )
 
+        self.download_from_s3()
+
     def validate_environment_variables(self):
         """Проверка наличия обязательных переменных окружения"""
         for var_name, value in self.REQUIRED_VARS.items():
@@ -46,11 +47,16 @@ class RAG:
                 raise ValueError(f"{var_name} не задан. Проверьте .env.")
 
     def load_and_index_documents(self, documents: List[str] = []):
+        # пустой список для всех чанков
+        all_chunks = []
+
         for path in documents:
             if path.endswith(".pdf"):
                 loader = PyPDFLoader(path)
             elif path.endswith(".txt"):
                 loader = TextLoader(path, encoding="utf-8")
+            else:
+                continue
             loaded = loader.load()
 
             valid_docs = [
@@ -61,21 +67,32 @@ class RAG:
                 and doc.page_content.strip()
             ]
 
+            for doc in valid_docs:
+                doc.metadata["source"] = os.path.basename(path)
+
             if not valid_docs:
-                valid_docs = [Document(page_content="Нет доступных документов.",
-                                       metadata={})]
+                continue
 
             text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=500, chunk_overlap=50,
+                chunk_size=1000, chunk_overlap=50,
                 separators=["\n\n", "\n", " ", ""]
             )
             chunks = text_splitter.split_documents(valid_docs)
-            vectorstore = FAISS.from_documents(chunks, self.embeddings)
-            vectorstore.save_local("./vectorstore_faiss",
-                                   index_name=str(uuid4()))
+            all_chunks.extend(chunks)
+
+        if not all_chunks:
+            print("Не найдено контента для индексации. Создан пустой индекс.")
+            all_chunks = [
+                Document(page_content="Нет доступных документов для поиска.",
+                         metadata={})]
+
+        vectorstore = FAISS.from_documents(all_chunks, self.embeddings)
+        vectorstore.save_local("./vectorstore_faiss", index_name="index")
+        print(f"""Индекс успешно создан и сохранен. 
+              Проиндексировано чанков: {len(all_chunks)}""")
 
     def download_from_s3(self):
-        # 1.3 Проверка подключения - валидация переменных окружения
+        # Проверка подключения - валидация переменных окружения
         self.validate_environment_variables()
         logger.info("Environment variables validation successful")
 
@@ -120,24 +137,33 @@ class RAG:
             self.load_and_index_documents(self.local_files)
 
     def search_engine(self, current_user_input: str = ""):
+        if not os.path.exists("./vectorstore_faiss"):
+            print("""Ошибка: папка с индексом
+            './vectorstore_faiss' не найдена. Запустите индексацию.""")
+            return ""
+
         vectorstore = FAISS.load_local(
-            "./vectorstore_faiss", self.embeddings,
+            "./vectorstore_faiss",
+            self.embeddings,
             allow_dangerous_deserialization=True
         )
-        retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+        retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
 
         retrieved_docs = retriever.invoke(current_user_input)
 
         if retrieved_docs:
-            context_chunks = "\n\n".join([doc.page_content for doc
-                                          in retrieved_docs])
-            print(f"RAG: найдено {len(retrieved_docs)} релевантных фрагментов.")
+            sources = {doc.metadata.get('source', 'Неизвестно')
+                       for doc in retrieved_docs}
+            print(f"""RAG: найдено {len(retrieved_docs)} релевантных \
+                  фрагментов из источников: {list(sources)}""")
+            context_chunks = "\n\n---\n\n".join(
+                [doc.page_content for doc in retrieved_docs]
+            )
             return context_chunks
+        print("RAG: релевантных фрагментов не найдено.")
         return ""
 
 
 # Создаем экземпляр РАГа
-rag = RAG()
-
-# rag.download_from_s3()
-print(rag.search_engine("Базовые методы защиты LLM"))
+# rag = RAG()
+# print(rag.search_engine("Базовые методы защиты LLM"))

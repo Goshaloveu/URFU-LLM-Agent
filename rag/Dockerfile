@@ -21,5 +21,6 @@ RUN uv sync --group rag --no-cache --frozen
 
 COPY ./rag/ .
 
-# Определение порта, на котором будет работать контейнер
 EXPOSE 7888
+
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "7888"]
