@@ -37,9 +37,7 @@ services:
     networks:
       - labubu_net
   rag:
-    build:
-      context: .
-      dockerfile: rag/Dockerfile
+    image: ghcr.io/labubu-team/labubu-rag:latest
     pull_policy: always
     networks:
       - labubu_net
