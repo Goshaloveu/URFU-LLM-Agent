@@ -20,12 +20,11 @@ services:
       # S3_PREFIX: ${S3_PREFIX:?S3_PREFIX is required}
     networks:
       - labubu_net
-  llm-agent:
+  rag:
     build:
       context: .
-      dockerfile: llm_agent/Dockerfile
+      dockerfile: rag/Dockerfile
     pull_policy: always
-    command: ["uvicorn", "yanka:app", "--host", "0.0.0.0", "--port", "7999"]
     networks:
       - labubu_net
 
