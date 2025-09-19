@@ -88,7 +88,7 @@ class RAG:
 
         vectorstore = FAISS.from_documents(all_chunks, self.embeddings)
         vectorstore.save_local("./vectorstore_faiss", index_name="index")
-        print(f"""Индекс успешно создан и сохранен. 
+        print(f"""Индекс успешно создан и сохранен. \
               Проиндексировано чанков: {len(all_chunks)}""")
 
     def download_from_s3(self):
@@ -167,4 +167,3 @@ class RAG:
 # Создаем экземпляр РАГа
 # rag = RAG()
 # print(rag.search_engine("Базовые методы защиты LLM"))
-# print KAPIBARA 

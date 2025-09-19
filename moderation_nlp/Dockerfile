@@ -6,10 +6,10 @@ WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
 
-RUN uv sync --no-cache
+RUN uv sync --group moder-nlp --no-cache --frozen
 
 COPY ./moderation_nlp/ .
 
 EXPOSE 8001
 
-CMD ["gunicorn", "moder_nlp_api:app", "--workers", "1", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8001"]
+CMD ["uv", "run", "moder_nlp_api.py"]
