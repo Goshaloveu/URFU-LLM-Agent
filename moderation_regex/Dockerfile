@@ -8,7 +8,7 @@ COPY pyproject.toml uv.lock ./
 
 RUN uv sync --no-cache
 
-COPY ./moderation-regex/ .
+COPY ./moderation_regex/ .
 
 EXPOSE 8002
 
