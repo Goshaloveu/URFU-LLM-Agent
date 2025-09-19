@@ -66,11 +66,6 @@ select = ["E", "F", "W", "C90", "I"]
 ignore = ["ANN401", "DJ001", "DJ007", "FBT001", "FBT002", "S311"]
 respect-gitignore = true
 
-[tool.ruff.lint.isort]
-known-first-party = ["src"]
-src = ["src"]
-
 [tool.isort]
 profile = "black"
 line_length = 88
-src_paths = ["src"]
