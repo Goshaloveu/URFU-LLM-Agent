@@ -42,7 +42,6 @@ jobs:
           docker build -f ./rag/Dockerfile -t $REPO:latest -t $REPO:${{ github.run_number }} .
           docker push $REPO:latest
           docker push $REPO:${{ github.run_number }}
-            - name: Build & push rag image
 
       - name: Build & push moderation_nlp image
         run: |
