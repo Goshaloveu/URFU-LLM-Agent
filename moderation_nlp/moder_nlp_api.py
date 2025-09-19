@@ -1,9 +1,9 @@
 # moder_nlp_api.py
+import torch
+import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import uvicorn
-import torch
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 
 app = FastAPI(title="Moderation NLP API", version="1.0")
 

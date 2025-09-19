@@ -46,3 +46,43 @@ tg = [
     "pyjwt>=2.10.1",
     "python-telegram-bot>=22.4"
 ]
+
+
+[project.optional-dependencies]
+dev = [
+  "coverage>=7.6.12",
+  "mypy>=1.15.0",
+  "ruff>=0.12.7",
+  "isort>=5.12.0",
+]
+
+[lint]
+ignore            = ["ANN401", "DJ001", "DJ007", "FBT001", "FBT002", "S311"]
+select            = ["E", "F", "W", "C90", "I"]
+
+[tool.ruff]
+line-length       = 88
+cache-dir         = ".ruff_cache"
+exclude          = [
+  ".git",
+  "__pycache__",
+  ".venv",
+  "dist",
+  "build",
+  ".ruff_cache",
+  "lectures"
+]
+target-version    = "py313"
+respect-gitignore = true
+
+[tool.ruff.analyze]
+detect-string-imports = true
+direction = "Dependencies"
+exclude = []
+include-dependencies = { }
+preview = false
+
+[tool.isort]
+profile = "black"
+line_length = 88
+src_paths = ["src"]
