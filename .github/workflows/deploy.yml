@@ -42,6 +42,21 @@ jobs:
           docker build -f ./rag/Dockerfile -t $REPO:latest -t $REPO:${{ github.run_number }} .
           docker push $REPO:latest
           docker push $REPO:${{ github.run_number }}
+            - name: Build & push rag image
+
+      - name: Build & push moderation_nlp image
+        run: |
+          REPO=ghcr.io/${{ steps.repo.outputs.owner_lc }}/labubu-moderation_nlp
+          docker build -f ./moderation_nlp/Dockerfile -t $REPO:latest -t $REPO:${{ github.run_number }} .
+          docker push $REPO:latest
+          docker push $REPO:${{ github.run_number }}
+
+      - name: Build & push moderation_regex image
+        run: |
+          REPO=ghcr.io/${{ steps.repo.outputs.owner_lc }}/labubu-moderation_regex
+          docker build -f ./moderation_regex/Dockerfile -t $REPO:latest -t $REPO:${{ github.run_number }} .
+          docker push $REPO:latest
+          docker push $REPO:${{ github.run_number }}
       
 
 #  build-and-push_llm-agent:
