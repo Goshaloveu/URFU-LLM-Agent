@@ -62,9 +62,11 @@ exclude = [
   ".ruff_cache",
   "lectures",
 ]
+respect-gitignore = true
+
+[lint]
 select = ["E", "F", "W", "C90", "I"]
 ignore = ["ANN401", "DJ001", "DJ007", "FBT001", "FBT002", "S311"]
-respect-gitignore = true
 
 [tool.isort]
 profile = "black"
