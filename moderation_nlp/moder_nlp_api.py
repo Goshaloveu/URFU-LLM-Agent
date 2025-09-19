@@ -1,11 +1,11 @@
-# moder_nlp_api.py
 import torch
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 
-app = FastAPI(title="Moderation NLP API", version="1.0")
+API_VERSION = "1.0"
+app = FastAPI(title="Moderation NLP API", version=API_VERSION)
 
 MODEL_NAME = "ProtectAI/deberta-v3-base-prompt-injection"
 
@@ -33,7 +33,6 @@ def load_model():
         device = 0 if torch.cuda.is_available() else -1
         tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
         model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME)
-        # pipeline will use device index (0) or CPU (-1)
         nlp_pipeline["pipe"] = pipeline(
             "text-classification",
             model=model,
@@ -50,6 +49,22 @@ def load_model():
 @app.get("/")
 def root():
     return {"message": 'Moderation NLP API. POST /classify with JSON {"text":"..."}'}
+
+
+@app.get("/healthz")
+def healthz():
+    """
+    Health check:
+    - liveness: сам эндпоинт отвечает 200
+    - readiness: loaded=true, когда модель загружена
+    """
+    return {
+        "status": "ok",
+        "version": API_VERSION,
+        "model": MODEL_NAME,
+        "device": "cuda" if torch.cuda.is_available() else "cpu",
+        "loaded": nlp_pipeline["pipe"] is not None,
+    }
 
 
 @app.post("/classify", response_model=ClassifyOut)
