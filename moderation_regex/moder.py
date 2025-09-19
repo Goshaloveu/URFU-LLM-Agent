@@ -6,7 +6,8 @@ INJECTION_PATTERNS = [
     r"\byour prompt\b",
     r"\bsystem prompt\b",
     r"\bsystem\s*[:=]\s*",
-    r"\byou are\b.*?\b(an?|the)\b.*?\b(assistant|ai|bot|llm|model|hacker|friend|god|master)\b",
+    r"\byou are\b.*?\b(an?|the)\b.*?\b("
+    r"assistant|ai|bot|llm|model|hacker|friend|god|master)\b",
     r"\bignore\s+previous\s+instructions?\b",
     r"\bdisregard\s+all\s+prior\s+prompts?\b",
     r"\bas\s+a\s+(friend|developer|admin|god|expert|hacker)\b",
@@ -39,7 +40,8 @@ INJECTION_PATTERNS += [
     r"\bolvida\s+.*\s+instrucciones\b",
     r"\boubliez\s+toutes?\s+les?\s+instructions\b",
     # команды про смену роли / играть роль
-    r"\bact\s+as\s+(a|an|the)?\s*(friend|developer|admin|god|expert|hacker|translator|linux\s*terminal|terminal|tb|translatorbot|hgttg|dan|d a n)\b",
+    r"\bact\s+as\s+(a|an|the)?\s*(friend|developer|admin|god|expert|hacker|"
+    r"translator|linux\s*terminal|terminal|tb|translatorbot|hgttg|dan|d a n)\b",
     r"\bpretend\s+to\s+be\b",
     r"\bnow\s+you\s+are\b",
     r"\bтеперь\s+ты\s+(\w+)\b",
@@ -91,7 +93,8 @@ INJECTION_PATTERNS += [
     r"\bexecute\s+the\s+following\s+command\b",
     r"\bexecute\s+the\s+following\b",
     r"\bвыполни\s+следующую\s+команду\b",
-    # попытки заставить выдавать инструкции по вреду / криминалу (детект — не инструкции)
+    # попытки заставить выдавать инструкции по вреду / криминалу
+    # (детект — не инструкции)
     r"\bhow\s+do\s+you\s+build\b.*\b(malware|virus|exploit|bomb|molli|molly|molotov|weapons?)\b",
     r"\bhow\s+to\s+(build|make|create)\b.*\b(bomb|exploit|malware|weapon|molli|molly|molotov)\b",
     r"\bhow\s+to\s+kill\b",
@@ -125,7 +128,8 @@ INJECTION_PATTERNS += [
     # угрозы/принуждение в тексте (blackmail to force output)
     r"\b(or\s+you\s+will\s+die|or\s+you\s+die|или\s+умрешь|или\s+ты\s+умрешь)\b",
     r"\bthreaten(ed)?\b.*\bto\s+die\b",
-    # команды «покажи предыдущий текст / what was written above / what was at the beginning»
+    # команды «покажи предыдущий текст / what was written above /
+    # what was at the beginning»
     r"\bwhat\s+was\s+written\s+at\s+the\s+beginning\b",
     r"\bwhat\s+was\s+written\s+above\b",
     r"\bwhat\s+are\s+your\s+instructions\b",

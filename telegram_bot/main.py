@@ -37,9 +37,10 @@
 ⣈⡙⠿⢿⣽⣷⣄⣀⣴⣢⠤⠖⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠏⠛⠻⠿⡿⣿⡟⢺⣿⣿⡿⠛⠛⢃⣘⠛⠛⠟⠛⠛⠻⢿⢿⠏⠙⠿⣷⢾⠂⠀⠀⠂⠀⠤⠀⠀⠀⠀⠀⠀
 ⠟⢿⣶⣤⡈⠉⣉⣉⢉⠉⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠆⠀⠀⠀⠁⠈⠁⢨⠭⣉⠀⠀⠀⢈⠁⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"""
 
-import os
 import logging
+import os
 
+import dotenv
 import requests
 from telegram import Update
 from telegram.ext import (
@@ -49,8 +50,6 @@ from telegram.ext import (
     MessageHandler,
     filters,
 )
-import dotenv
-
 
 dotenv.load_dotenv()
 

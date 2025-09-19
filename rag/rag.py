@@ -1,20 +1,15 @@
-import os
 import logging
-import dotenv
-import boto3
+import os
+import tempfile
 from typing import List
 
-import tempfile
-
+import boto3
+import dotenv
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
-
-from langchain_core.documents import Document
-
 from langchain_community.vectorstores import FAISS
+from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
-
 from langchain_text_splitters.character import RecursiveCharacterTextSplitter
-
 
 dotenv.load_dotenv()
 
@@ -88,7 +83,7 @@ class RAG:
 
         vectorstore = FAISS.from_documents(all_chunks, self.embeddings)
         vectorstore.save_local("./vectorstore_faiss", index_name="index")
-        print(f"""Индекс успешно создан и сохранен. \
+        print(f"""Индекс успешно создан и сохранен.
               Проиндексировано чанков: {len(all_chunks)}""")
 
     def download_from_s3(self):
@@ -167,3 +162,4 @@ class RAG:
 # Создаем экземпляр РАГа
 # rag = RAG()
 # print(rag.search_engine("Базовые методы защиты LLM"))
+# print KAPIBARA
